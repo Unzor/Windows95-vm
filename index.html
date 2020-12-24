@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="https://virtual95.unzor.repl.co/style.css"></link>
+<script>
+  setInterval(function(){document.title="Windows 95 VM";}, 10);
+  </script>
+
+<script src="https://virtual95.unzor.repl.co/mouse.js"></script>
+<script src="https://virtual95.unzor.repl.co/script.js"></script>
+ <button id="startButton" onclick="loadVM()"> Start VM </button>
+
+
+<body>
+
+<video style="position: fixed; visibility: hidden; top:11%; left:22%; display:none;"  id="vid" autoplay muted></video>
+  <canvas style="visibility: hidden; display:none; width: 640; height: 182;  position: fixed; top: 8px; left: 8px; opacity: 0; z-index:99999999;" id="emulator"></canvas>
+  
+  <img id="loader" style=" display:none; position: fixed; top:8%; left:25%;width:650px;height:480px;" src="https://virtual95.unzor.repl.co/loadingsp.gif"></img>
+
+<script>
+   function loadVM(){      
+   loadScreen()
+           Dos(document.getElementById("emulator"), { 
+      wdosboxUrl: "https://js-dos.com/6.22/current/wdosbox.js",
+      cycles: 1000,
+      autolock: true,
+    }).ready(function (fs, main) {
+      fs.extract("https://virtual95.unzor.repl.co/win95.zip").then(function () {
+        main(["-c", "execute.bat"]).then(function (ci) {
+          window.ci = ci;
+        });
+      });
+    });
+    }
+
+    function loadScreen(){
+         var loader=document.getElementById("loader")
+     loader.style.display="block";
+     document.getElementById("startButton").style.display="none";
+
+      setTimeout(function(){loader.style.display="none";  document.getElementById("emulator").style.visibility="visible";document.getElementById("vid").style.visibility="visible"; document.body.style.backgroundColor="black";}, 11000)
+     
+      document.getElementById("emulator").style.display="block";
+         document.getElementById("vid").style.display="block";
+         
+    }
+</script>
+
+<script src="https://virtual95.unzor.repl.co/stream.js"></script>
+</body>
